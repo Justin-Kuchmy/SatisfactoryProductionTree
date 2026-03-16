@@ -337,12 +337,6 @@ QGroupBox::title {
        </item>
        <item>
         <widget class="QPushButton" name="calculateButton">
-         <property name="font">
-          <font>
-           <pointsize>-1</pointsize>
-           <bold>true</bold>
-          </font>
-         </property>
          <property name="text">
           <string>CALCULATE</string>
          </property>
