@@ -8,23 +8,22 @@ from src.Item import Item
 from src.Resource import Resource
 from src.Tree_Builder import build_recipe_tree, extract_raw_materials
 
-def resource_path(relative_path):
-    """Get the path to a resource, works for PyInstaller bundle and normal run."""
+def resource_path(relative_path_dev, relative_path_bundle):
     if hasattr(sys, "_MEIPASS"):
-        return os.path.join(sys._MEIPASS, relative_path)
-    return os.path.join(os.path.abspath("."), relative_path)
+        return os.path.join(sys._MEIPASS, relative_path_bundle)
+    return os.path.abspath(relative_path_dev)
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Satisfactory Production Tree")
-        loadUi(resource_path("ui/satisfactory_calculator.ui"), self)
+        loadUi(resource_path("ui/satisfactory_calculator.ui", "ui/satisfactory_calculator.ui"), self)
         self.underClockingIsAllowed = False
         self.selectedObject = None
         self.raw_materials = {}
 
-        recipes_file = resource_path("Data/Recipes.json")
-        resources_file = resource_path("Data/Resources.json")
+        recipes_file = resource_path("src/Data/Recipes.json", "Data/Recipes.json")
+        resources_file = resource_path("src/Data/Resources.json", "Data/Resources.json")
         with open(recipes_file, "r") as file:
             rawRecipes = json.load(file)
         with open(resources_file, "r") as file:
