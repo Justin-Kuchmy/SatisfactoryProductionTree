@@ -11,6 +11,8 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Satisfactory Production Tree")
         loadUi("ui/satisfactory_calculator.ui", self)
+        self.underClockingIsAllowed = False
+        self.selectedObject = None
 
         with open("src/Data/Recipes.json", "r") as file:
             rawRecipes = json.load(file)
@@ -19,7 +21,6 @@ class MainWindow(QMainWindow):
 
         self.items = [Item(**item) for item in rawRecipes]
         self.rawResources = [Resource(**raw_mat) for raw_mat in rawResources]
-
         self.loadItems()
 
         #connecting the ui elements to the python functions
@@ -62,13 +63,42 @@ class MainWindow(QMainWindow):
             item.setHidden(not matches)
 
     def on_calculate_clicked(self):
-        pass
-    def on_spinbox_changed(self):
-        pass    
+        if not self.selectedObject :
+            return
+        itemName = self.items[self.selectedObject["index"]].name
+        returnValue = self.items[self.selectedObject["index"]].product[0].quantity
+        item = next((i for i in self.items if i.name == itemName), None)
+        
+        # 60 seconds divided by number of time per craft.
+        # multiply by the number of items each craft will return
+        # example, each craft takes 6 seconds so we have 10 crafts per minute
+        # but if each craft gives us 2 of said item so our default is 20 items per minute. 
+        crafts_per_minute = 60 / item.time
+        default_amount = crafts_per_minute * returnValue
+      
+        #get multiplier via spin box
+        user_amount= self.rateSpinBox.value()
+        
+        # each item as a default "items made per minute"
+        # use default if spinbox amount is lower then the spinbox value unless 
+        # underClockingIsAllowed checkbox is checked
+        if (user_amount < default_amount) and not self.underClockingIsAllowed:
+            final_amount = default_amount
+            self.rateSpinBox.setValue(final_amount)
+        else:
+            final_amount = user_amount
+        
+        self.statusbar.showMessage(f"Calculated {final_amount} {itemName}/min")   
+
+    def on_spinbox_changed(self, text):
+        self.rateSpinBox.setValue(round(float(text), 3))
+        self.multiplier =  self.rateSpinBox.value()         
+
     def on_item_clicked(self, list_item: QListWidgetItem):
         item = list_item.data(Qt.ItemDataRole.UserRole)
         label = "Selected Item: " + item["obj"].name
         self.selectedItemLabel.setText(label)
         self.selectedObject = item
+        self.rateSpinBox.setValue(1.00)
     def toggleCheckBox(self):
-        pass
+        self.underClockingIsAllowed =  self.allowUnderClocking.isChecked()
