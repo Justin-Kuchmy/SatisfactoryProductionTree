@@ -1,0 +1,98 @@
+         [
+            {
+                "key_name": "iron_ore",
+                "category": "mineral"
+            },
+            {
+                "key_name": "copper_ore",
+                "category": "mineral"
+            },
+            {
+                "key_name": "coal",
+                "category": "mineral"
+            },
+            {
+                "key_name": "petroleum_coke",
+                "category": "mineral"
+            },
+            {
+                "key_name": "limestone",
+                "category": "mineral"
+            },
+            {
+                "key_name": "sam",
+                "category": "mineral"
+            },
+            {
+                "key_name": "caterium_ore",
+                "category": "mineral"
+            },
+            {
+                "key_name": "sulfur",
+                "category": "mineral"
+            },
+            {
+                "key_name": "raw_quartz",
+                "category": "mineral"
+            },
+            {
+                "key_name": "crude_oil",
+                "category": "oil"
+            },
+            {
+                "key_name": "bauxite",
+                "category": "mineral"
+            },
+            {
+                "key_name": "water",
+                "category": "liquid"
+            },
+            {
+                "key_name": "uranium",
+                "category": "mineral"
+            },
+            {
+                "key_name": "nitrogen_gas",
+                "category": "gas"
+            },
+            {
+                "key_name": "leaves",
+                "category": "nature"
+            },
+            {
+                "key_name": "wood",
+                "category": "nature"
+            },
+            {
+                "key_name": "alien_carapace",
+                "category": "nature"
+            },
+            {
+                "key_name": "mycelia",
+                "category": "nature"
+            },
+            {
+                "key_name": "alien_organs",
+                "category": "nature"
+            },
+            {
+                "key_name": "flower_petals",
+                "category": "nature"
+            },
+            {
+                "key_name": "heavy_residue",
+                "category": "by product"
+            },
+            {
+                "key_name": "polymer_resin",
+                "category": "by product"
+            },
+            {
+                "key_name": "object_scanner",
+                "category": "crafting"
+            },
+            {
+                "key_name": "uranium_waste",
+                "category": "by product"
+            }
+        ]
