@@ -1,60 +1,55 @@
-name: Build Windows Executable
+name: Build Cross-Platform Executables
 
 on:
-  release:
-    types: [published]  
+  push:
+    tags:
+      - "v*"
 
 jobs:
   build-windows:
     runs-on: windows-latest
-
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.12.3'
-
       - name: Install dependencies
-        run: |
-          pip install pyqt6 pyinstaller
-
+        run: pip install pyqt6 pyinstaller
       - name: Build Windows exe
+        shell: cmd
         run: |
           pyinstaller --onefile --windowed ^
-          --name SatisfactoryProductionTree.exe ^
-          --add-data "ui;satisfactory_calculator/ui" ^
-          --add-data "src/Data;Data" ^
-          main.py
-
+            --name SatisfactoryProductionTree.exe ^
+            --add-data "ui;satisfactory_calculator/ui" ^
+            --add-data "src/Data;Data" ^
+            main.py
       - name: Upload exe to release
         uses: softprops/action-gh-release@v1
         with:
           files: dist/SatisfactoryProductionTree.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build-linux:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - name: Set up Python
-          uses: actions/setup-python@v4
-          with:
-            python-version: '3.12.3'
-        - name: Install dependencies
-          run: |
-            pip install pyqt6 pyinstaller
-        - name: Build Linux binary
-          run: |
-            pyinstaller --onefile --windowed \
-            --name SatisfactoryProductionTree.x86_64 \
-            --add-data "ui:ui" \
-            --add-data "src/Data:Data" \
-            main.py
-        - name: Upload Linux binary
-          uses: softprops/action-gh-release@v1
-          with:
-            files: dist/SatisfactoryProductionTree.x86_64
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}         
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.3'
+      - name: Install dependencies
+        run: pip install pyqt6 pyinstaller
+      - name: Build Linux binary
+        run: pyinstaller --onefile --windowed --name SatisfactoryProductionTree.x86_64 --add-data "ui:ui" --add-data "src/Data:Data" main.py
+      - name: Upload Linux binary
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/SatisfactoryProductionTree.x86_64
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
