@@ -1,10 +1,11 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QTreeWidgetItem, QSplitter
+from PyQt6.QtWidgets import QMainWindow, QListWidgetItem, QSplitter, QTreeWidgetItem
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import Qt
 import json
 from src.Item import Item
 from src.Resource import Resource
+from src.Tree_Builder import build_recipe_tree, extract_raw_materials
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -13,6 +14,7 @@ class MainWindow(QMainWindow):
         loadUi("ui/satisfactory_calculator.ui", self)
         self.underClockingIsAllowed = False
         self.selectedObject = None
+        self.raw_materials = {}
 
         with open("src/Data/Recipes.json", "r") as file:
             rawRecipes = json.load(file)
@@ -87,7 +89,10 @@ class MainWindow(QMainWindow):
             self.rateSpinBox.setValue(final_amount)
         else:
             final_amount = user_amount
-        
+
+        root_node = build_recipe_tree(self, itemName, final_amount, returnValue)
+        self.display_tree(root_node)
+
         self.statusbar.showMessage(f"Calculated {final_amount} {itemName}/min")   
 
     def on_spinbox_changed(self, text):
@@ -102,3 +107,26 @@ class MainWindow(QMainWindow):
         self.rateSpinBox.setValue(1.00)
     def toggleCheckBox(self):
         self.underClockingIsAllowed =  self.allowUnderClocking.isChecked()
+
+    def display_tree(self, root_node):
+        self.recipeTreeWidget.clear()
+        self.recipeTreeWidget.setColumnWidth(0, 400)  # First column
+        self.recipeTreeWidget.setColumnWidth(1, 150)  # Second column
+
+        self.rawMaterialsTreeWidget.clear()
+        self.rawMaterialsTreeWidget.setColumnWidth(0, 400)  # First column
+        self.rawMaterialsTreeWidget.setColumnWidth(1, 150)  # Second column
+        
+        # Convert TreeNode to QTreeWidgetItem
+        root_item = root_node.to_tree_widget_item()
+        self.recipeTreeWidget.addTopLevelItem(root_item)
+        self.recipeTreeWidget.expandAll()
+        
+        # Extract raw materials from TreeNode
+        raw_materials = extract_raw_materials(self, root_node)
+        
+        # Display raw materials
+        for material, amount in sorted(raw_materials.items(), key=lambda x: x[1], reverse=True):
+            item = QTreeWidgetItem(self.rawMaterialsTreeWidget)
+            item.setText(0, material)
+            item.setText(1, str(round(amount, 2)))
