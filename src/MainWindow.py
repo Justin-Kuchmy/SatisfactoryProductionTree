@@ -7,4 +7,4 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Satisfactory Production Tree")
-        self.resize(800, 600)
+        loadUi("ui/satisfactory_calculator.ui", self)
