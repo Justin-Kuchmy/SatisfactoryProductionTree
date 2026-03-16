@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1400</width>
+    <height>900</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Satisfactory Calculator - Production Analyzer</string>
+  </property>
+  <property name="styleSheet">
+   <string>QMainWindow {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+QWidget {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+QLabel {
+    color: #e0e0e0;
+    font-weight: 500;
+}
+
+QLineEdit {
+    background-color: #2a2a2a;
+    color: #ffb800;
+    border: 2px solid #444444;
+    border-radius: 4px;
+    padding: 6px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #ffb800;
+    background-color: #252525;
+}
+
+QListWidget {
+    background-color: #242424;
+    color: #e0e0e0;
+    border: 2px solid #333333;
+    border-radius: 4px;
+    outline: none;
+}
+
+QListWidget::item {
+    padding: 8px;
+    border-bottom: 1px solid #333333;
+}
+
+QListWidget::item:hover {
+    background-color: #333333;
+}
+
+QListWidget::item:selected {
+    background-color: #ffb800;
+    color: #1a1a1a;
+    font-weight: bold;
+}
+
+QTreeWidget {
+    background-color: #242424;
+    color: #e0e0e0;
+    border: 2px solid #333333;
+    border-radius: 4px;
+    outline: none;
+    gridline-color: #333333;
+}
+
+QTreeWidget::item {
+    padding: 4px;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+QTreeWidget::item:hover {
+    background-color: #2f2f2f;
+}
+
+QTreeWidget::item:selected {
+    background-color: #ffb800;
+    color: #1a1a1a;
+}
+
+QHeaderView::section {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    padding: 5px;
+    border: none;
+    border-right: 1px solid #333333;
+}
+
+QCheckBox {
+    color: #e0e0e0;
+    spacing: 6px;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: #2a2a2a;
+    border: 2px solid #444444;
+}
+
+QCheckBox::indicator:unchecked:hover {
+    border: 2px solid #ffb800;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #ff8c00;
+    border: 2px solid #ff8c00;
+}
+
+QCheckBox::indicator:checked:hover {
+    background-color: #ffb800;
+    border: 2px solid #ffb800;
+}
+
+QCheckBox::indicator:checked:pressed {
+    background-color: #e67e00;
+    border: 2px solid #e67e00;
+}
+
+QPushButton {
+    background-color: #ff8c00;
+    color: #000000;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 24px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+QPushButton:hover {
+    background-color: #ffb800;
+}
+
+QPushButton:pressed {
+    background-color: #e67e00;
+}
+
+QSpinBox, QDoubleSpinBox {
+    background-color: #2a2a2a;
+    color: #ffb800;
+    border: 2px solid #444444;
+    border-radius: 4px;
+    padding: 5px;
+    font-weight: bold;
+}
+
+QSpinBox:focus, QDoubleSpinBox:focus {
+    border: 2px solid #ffb800;
+}
+
+QComboBox {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 2px solid #444444;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+QComboBox:focus {
+    border: 2px solid #ffb800;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 2px solid #444444;
+    selection-background-color: #ffb800;
+    selection-color: #1a1a1a;
+}
+
+QScrollBar:vertical {
+    background-color: #242424;
+    width: 12px;
+    border: none;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #555555;
+    border-radius: 6px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: #ffb800;
+}
+
+QScrollBar:horizontal {
+    background-color: #242424;
+    height: 12px;
+    border: none;
+}
+
+QScrollBar::handle:horizontal {
+    background-color: #555555;
+    border-radius: 6px;
+    min-width: 20px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background-color: #ffb800;
+}
+
+QGroupBox {
+    color: #e0e0e0;
+    border: 2px solid #333333;
+    border-radius: 6px;
+    margin-top: 12px;
+    padding-top: 8px;
+    font-weight: bold;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 3px;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_main">
+    <item>
+     <widget class="QGroupBox" name="itemSelectionBox">
+      <property name="title">
+       <string>Item Selection</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_items">
+       <item>
+        <widget class="QLineEdit" name="searchLineEdit">
+         <property name="placeholderText">
+          <string>Search items...</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="itemListWidget">
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="calculatorBox">
+      <property name="title">
+       <string>Production Calculator</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_calc">
+       <item>
+        <widget class="QLabel" name="selectedItemLabel">
+         <property name="styleSheet">
+          <string>QLabel {
+    color: #ffb800;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #2a2a2a;
+    border-radius: 4px;
+}</string>
+         </property>
+         <property name="text">
+          <string>Selected Item: None</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="rateInputBox">
+         <property name="title">
+          <string>Production Rate</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_rate">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout"/>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="allowUnderClocking">
+            <property name="toolTip">
+             <string extracomment="Allows values less than the default rate"/>
+            </property>
+            <property name="toolTipDuration">
+             <number>5</number>
+            </property>
+            <property name="text">
+             <string>Allow UnderClocked Values</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_rate">
+            <item>
+             <widget class="QLabel" name="rateLabel">
+              <property name="text">
+               <string>Items/min:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDoubleSpinBox" name="rateSpinBox">
+              <property name="minimum">
+               <double>0.100000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>999999.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.100000000000000</double>
+              </property>
+              <property name="value">
+               <double>1.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="calculateButton">
+         <property name="font">
+          <font>
+           <pointsize>-1</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>CALCULATE</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="rightPanel">
+      <item>
+       <widget class="QGroupBox" name="recipieTreeBox">
+        <property name="title">
+         <string>Recipe Tree</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_tree">
+         <item>
+          <widget class="QTreeWidget" name="recipeTreeWidget">
+           <property name="uniformRowHeights">
+            <bool>false</bool>
+           </property>
+           <property name="columnCount">
+            <number>2</number>
+           </property>
+           <column>
+            <property name="text">
+             <string>Component</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Amount/min</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="rawMaterialsBox">
+        <property name="title">
+         <string>Total Raw Materials</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_raw">
+         <item>
+          <widget class="QTreeWidget" name="rawMaterialsTreeWidget">
+           <property name="uniformRowHeights">
+            <bool>false</bool>
+           </property>
+           <property name="columnCount">
+            <number>2</number>
+           </property>
+           <column>
+            <property name="text">
+             <string>Material</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Total/min</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="styleSheet">
+    <string>QStatusBar {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border-top: 1px solid #333333;
+}</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
