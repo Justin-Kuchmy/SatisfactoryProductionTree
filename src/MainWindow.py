@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt6.QtWidgets import QMainWindow, QListWidgetItem, QSplitter, QTreeWidgetItem
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import Qt
@@ -7,18 +8,26 @@ from src.Item import Item
 from src.Resource import Resource
 from src.Tree_Builder import build_recipe_tree, extract_raw_materials
 
+def resource_path(relative_path):
+    """Get the path to a resource, works for PyInstaller bundle and normal run."""
+    if hasattr(sys, "_MEIPASS"):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Satisfactory Production Tree")
-        loadUi("ui/satisfactory_calculator.ui", self)
+        loadUi(resource_path("ui/satisfactory_calculator.ui"), self)
         self.underClockingIsAllowed = False
         self.selectedObject = None
         self.raw_materials = {}
 
-        with open("src/Data/Recipes.json", "r") as file:
+        recipes_file = resource_path("Data/Recipes.json")
+        resources_file = resource_path("Data/Resources.json")
+        with open(recipes_file, "r") as file:
             rawRecipes = json.load(file)
-        with open("src/Data/Resources.json", "r") as file:
+        with open(resources_file, "r") as file:
             rawResources = json.load(file)
 
         self.items = [Item(**item) for item in rawRecipes]
