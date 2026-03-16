@@ -55,8 +55,12 @@ class MainWindow(QMainWindow):
             index += 1
             self.itemListWidget.addItem(list_item)
 
-    def on_search_text_changed(self):
-        pass
+    def on_search_text_changed(self, text):
+        for i in range(self.itemListWidget.count()):
+            item = self.itemListWidget.item(i)
+            matches = text.lower() in item.text().lower()
+            item.setHidden(not matches)
+
     def on_calculate_clicked(self):
         pass
     def on_spinbox_changed(self):
