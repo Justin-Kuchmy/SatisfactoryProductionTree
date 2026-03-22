@@ -98,7 +98,5 @@ SatisfactoryProductionTree/
 ```
 
 ## Sample
-
-```
 ![Sample Screenshot](Resource/Images/Sample.png "Working Example Screenshot")
-```
+
