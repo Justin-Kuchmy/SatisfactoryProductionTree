@@ -96,3 +96,9 @@ SatisfactoryProductionTree/
 └── ui/
     └── satisfactory_calculator.ui  # Qt UI layout
 ```
+
+## Sample
+
+```
+![Sample Screenshot](Resource/Images/Sample.png "Working Example Screenshot")
+```
